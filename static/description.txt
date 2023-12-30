@@ -1,0 +1,4 @@
+holds static file/nonchanging
+- css
+- js
+- images

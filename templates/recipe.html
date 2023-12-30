@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe</title>
+</head>
+<body>
+    <h1>Recipe Data</h1>
+
+    <h2>Recipe Name</h2>
+    <p>{{ name }}</p>
+
+    <h2>Recipe Schema</h2>
+    <p>{{ schema }}</p>
+
+    <h2>Recipe Prep-Time</h2>
+    <p>{{ prep_time }}</p>
+
+    <h2>Recipe Cook-Time</h2>
+    <p>{{ cook_time }}</p>
+
+    <h2>Recipe Total-Time</h2>
+    <p>{{ total_time }}</p>
+
+
+    <!-- for loop in html to display each ingredient in the list-->
+    <h2>Recipe Ingredients</h2>
+    <ul>
+        {% for ingredient in ingredients %}
+        <li> {{ ingredient }} </li>
+        {% endfor %}
+    </ul>
+
+    <h2>Recipe Instructions</h2>
+    <ul>
+        {% for instruction in instructions %}
+        <li> {{ instruction }} </li>
+        {% endfor %}
+    </ul>
+    
+</body>
+</html>

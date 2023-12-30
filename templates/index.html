@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raymond Pham</title>
+    <link rel="stylesheet" href="{{url_for('static', filename = 'style.css')}}">
+</head>
+<body>
+<!--  -->
+<div class="container">        <!-- for the background  -->                             
+    <form action="/recipe" class="search-bar">  <!-- user input that goes to the recipe page after input -->
+        <input type="text" placeholder="Paste recipe url here pls :>" name="url" id="url"> <!-- text for input box  -->
+        <button type ="submit"><img src = "{{url_for('static', filename = 'images/search.png')}}"></button> <!-- clickable button on the side that will submit the users input -->
+    </form>
+</div>
+</body>
+</html>

@@ -114,7 +114,7 @@ def output(food_name, schema, prep_time, cook_time, total_time, ingredients, ins
 
 
 def main():
-    url = "https://www.modernhoney.com/the-best-snickerdoodle-cookie-recipe/"
+    url = ""
     html = scrape(url)
     json_data = parse(html)
     recipe_data = get_recipe_data(json_data)
@@ -128,10 +128,6 @@ def main():
     instrcutions = get_instructions(recipe_data)
 
     output(name, schema, prep_time, cook_time, total_time, ingredients, instrcutions)
-
-main()
-
-# maybe add the prep and cook times for the recipe
 
 
 
