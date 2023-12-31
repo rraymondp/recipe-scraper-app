@@ -17,6 +17,7 @@ def get_recipe_data():                     #retrieve the recipes data from the u
     html = scraper.scrape(url)
     json_data = scraper.parse(html)
     recipe_data = scraper.get_recipe_data(json_data)
+    article_data = scraper.get_article_data(json_data)
 
     name = scraper.get_name(recipe_data)
     schema = scraper.get_schema(json_data)
@@ -25,6 +26,7 @@ def get_recipe_data():                     #retrieve the recipes data from the u
     total_time = scraper.get_total_time(recipe_data)
     ingredients = scraper.get_ingredients(recipe_data)
     instructions = scraper.get_instructions(recipe_data)
+    thumbnail_url = scraper.get_thumbnail(article_data)
 
     return render_template(                #goes to the recipe html page and replaces the template variables {{ }} with the values that were gathered here
         "recipe.html",
@@ -34,6 +36,7 @@ def get_recipe_data():                     #retrieve the recipes data from the u
         cook_time = cook_time,
         total_time = total_time,
         ingredients = ingredients,
-        instructions = instructions
+        instructions = instructions,
+        thumbnail_url = thumbnail_url
         )
     

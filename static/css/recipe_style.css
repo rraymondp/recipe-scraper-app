@@ -1,0 +1,71 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+li {
+    margin: 10px 0;
+  }
+
+img {
+    height: 200px;
+    display: block;
+    margin: auto;
+}
+
+body{
+    background-image: url(../images/download.png)
+}
+
+.container{
+    display: flex;
+    justify-content: center;
+}
+
+.data_container{
+    background-color: #ffce78;
+    border-radius: 25px;
+    display: grid;
+    height: fit-content;
+    width: 1000px;
+    margin: 20px;
+    padding: 20px;
+}
+
+.name_box{
+    background-size:cover;
+    text-align: center;
+    margin: 20px;
+}
+
+.time_grid{
+    display: grid;
+    grid-template-columns: repeats(3, 1fr);
+    text-align: center;
+    margin-top: 30px;
+}
+
+.prep_time_box{
+    grid-column: 1;
+}
+.cook_time_box{
+    grid-column: 2;
+}
+.total_time_box{
+    grid-column: 3;
+}
+
+.list_grid{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    margin: 20px;
+    column-gap: 30px;
+}
+
+.ingredients_box{
+    grid-column: 1;
+}
+
+.instructions_box{
+    grid-column: 2;
+}

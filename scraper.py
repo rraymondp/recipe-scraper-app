@@ -7,7 +7,6 @@ def scrape(url):
     #added user-agent to combat 403 error
     headers = {'User-Agent' : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'}
     result = requests.get(url, headers=headers)
-    print(result)
 
     return result
 
@@ -34,6 +33,18 @@ def get_recipe_data(json_ld):
         recipe_data = json_ld
 
     return recipe_data
+
+def get_article_data(json_ld):
+    #check if json-ld has a graph object or not --> '@graph'
+    if len(json_ld) <= 2:
+        for i in range(len(json_ld["@graph"])):                 #Iterating through the '@graph' key to find the value that contains the recipe data
+            if (json_ld["@graph"][i]["@type"] == "Article"):
+                article_data = json_ld["@graph"][i]
+    else:
+        article_data = json_ld
+
+    return article_data
+
 
 def get_schema(json_dic):
     schema = json_dic["@context"]
@@ -72,8 +83,12 @@ def get_total_time(results):
 def get_minutes(time):
     mins = isodate.parse_duration(time).seconds // 60
     return mins
+
+def get_thumbnail(results):
+    thumbnail_url = results["thumbnailUrl"]
+    return thumbnail_url
     
-def output(food_name, schema, prep_time, cook_time, total_time, ingredients, instructions):
+def output(food_name, schema, prep_time, cook_time, total_time, thumbnail_url, ingredients, instructions):
     print('\n')
     print("The Name of the Recipe is:")
     print("--------------------------")
@@ -100,6 +115,11 @@ def output(food_name, schema, prep_time, cook_time, total_time, ingredients, ins
     print(str(total_time) + " mins")
     print('\n')
 
+    print("The thumbnail url for the recipe website is:")
+    print("------------------------------------")
+    print(thumbnail_url)
+    print('\n')
+
     print("The ingredients for the recipe is:")
     print("----------------------------------")
 
@@ -114,10 +134,11 @@ def output(food_name, schema, prep_time, cook_time, total_time, ingredients, ins
 
 
 def main():
-    url = ""
+    url = "https://handletheheat.com/chewy-brownies/"
     html = scrape(url)
     json_data = parse(html)
     recipe_data = get_recipe_data(json_data)
+    article_data = get_article_data(json_data)
 
     name = get_name(recipe_data)
     schema = get_schema(json_data)
@@ -125,9 +146,12 @@ def main():
     cook_time = get_cook_time(recipe_data)
     total_time = get_total_time(recipe_data)
     ingredients = get_ingredients(recipe_data)
-    instrcutions = get_instructions(recipe_data)
+    instructions = get_instructions(recipe_data)
+    thumbnail = get_thumbnail(article_data)
 
-    output(name, schema, prep_time, cook_time, total_time, ingredients, instrcutions)
+    output(name, schema, prep_time, cook_time, total_time, thumbnail, ingredients, instructions)
+
+
 
 
 
