@@ -7,12 +7,6 @@ li {
     margin: 10px 0;
   }
 
-img {
-    height: 200px;
-    display: block;
-    margin: auto;
-}
-
 body{
     background-image: url(../images/download.png)
 }
@@ -25,7 +19,6 @@ body{
 .data_container{
     background-color: #ffce78;
     border-radius: 25px;
-    display: grid;
     height: fit-content;
     width: 1000px;
     margin: 20px;
@@ -33,16 +26,27 @@ body{
 }
 
 .name_box{
-    background-size:cover;
     text-align: center;
     margin: 20px;
+}
+
+.url{
+    text-align: center;
+    margin: 20px;
+}
+
+img{
+    height: 200px;
+    display: block;
+    margin: auto;
 }
 
 .time_grid{
     display: grid;
     grid-template-columns: repeats(3, 1fr);
     text-align: center;
-    margin-top: 30px;
+    gap: 10px;
+    margin: 20px;
 }
 
 .prep_time_box{

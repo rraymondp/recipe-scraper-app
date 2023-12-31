@@ -13,7 +13,12 @@
                 <h1>{{ name }}</h1>
             </div>
 
-            <img src="{{ thumbnail_url }}" />
+            <div class="url">
+                <p> <strong>by:</strong> <a href="{{ url }}" target="_blank"> {{ url }}</a></p>
+            </div>
+
+            <img src="{{ thumbnail_url }}" /> 
+
 
             <div class="time_grid">
                 <div class="prep_time_box">
@@ -28,7 +33,6 @@
                     <p> <font size = "4"> <strong>Total Time:</strong> </font> {{ total_time }} minutes</p>
                 </div>
             </div>  
-
 
             <div class="list_grid">
                 <div class="ingredients_box">

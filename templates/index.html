@@ -7,8 +7,9 @@
     <link rel="stylesheet" href="{{url_for('static', filename = 'css/index_style.css')}}">
 </head>
 <body>
-<div class="container">        <!-- for the background  -->                         
+<div class="container">        <!-- for the background  -->                       
     <h1> Raymonds Recipe Website >:D </h1>
+    <p>{{ error_statement }}</p>   
     <form action="/recipe" class="search-bar">  <!-- user input that goes to the recipe page after input -->
         <input type="text" placeholder="Paste recipe url here pls :>" name="url" id="url"> <!-- text for input box  -->
         <button type ="submit"><img src = "{{url_for('static', filename = 'images/search.png')}}"></button> <!-- clickable button on the side that will submit the users input -->

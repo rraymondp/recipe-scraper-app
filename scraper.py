@@ -7,8 +7,8 @@ def scrape(url):
     #added user-agent to combat 403 error
     headers = {'User-Agent' : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'}
     result = requests.get(url, headers=headers)
-
     return result
+
 
 def parse(html_page):
     soup = str(BeautifulSoup(html_page.text, "html.parser"))
@@ -38,7 +38,7 @@ def get_article_data(json_ld):
     #check if json-ld has a graph object or not --> '@graph'
     if len(json_ld) <= 2:
         for i in range(len(json_ld["@graph"])):                 #Iterating through the '@graph' key to find the value that contains the recipe data
-            if (json_ld["@graph"][i]["@type"] == "Article"):
+            if (json_ld["@graph"][i]["@type"] == "Article" or json_ld["@graph"][i]["@type"] == "WebPage"):
                 article_data = json_ld["@graph"][i]
     else:
         article_data = json_ld
@@ -77,7 +77,10 @@ def get_cook_time(results):
     return ctime
 
 def get_total_time(results):
-    total_time = get_minutes(results["totalTime"])
+    if "totalTime" in results.keys():
+        total_time = get_minutes(results["totalTime"])
+    else:
+        total_time = get_prep_time(results) + get_cook_time(results)
     return total_time
 
 def get_minutes(time):
@@ -134,24 +137,33 @@ def output(food_name, schema, prep_time, cook_time, total_time, thumbnail_url, i
 
 
 def main():
-    url = "https://handletheheat.com/chewy-brownies/"
-    html = scrape(url)
-    json_data = parse(html)
-    recipe_data = get_recipe_data(json_data)
-    article_data = get_article_data(json_data)
+    try:
+        url = ""
+        html = scrape(url)
+        json_data = parse(html)
+        recipe_data = get_recipe_data(json_data)
+        article_data = get_article_data(json_data)
+        name = get_name(recipe_data)
+        schema = get_schema(json_data)
+        prep_time = get_prep_time(recipe_data)
+        cook_time = get_cook_time(recipe_data)
+        total_time = get_total_time(recipe_data)
+        ingredients = get_ingredients(recipe_data)
+        instructions = get_instructions(recipe_data)
+        thumbnail = get_thumbnail(article_data)
 
-    name = get_name(recipe_data)
-    schema = get_schema(json_data)
-    prep_time = get_prep_time(recipe_data)
-    cook_time = get_cook_time(recipe_data)
-    total_time = get_total_time(recipe_data)
-    ingredients = get_ingredients(recipe_data)
-    instructions = get_instructions(recipe_data)
-    thumbnail = get_thumbnail(article_data)
+        output(name, schema, prep_time, cook_time, total_time, thumbnail, ingredients, instructions)
 
-    output(name, schema, prep_time, cook_time, total_time, thumbnail, ingredients, instructions)
-
-
+    except Exception as error:
+        print(type(error).__name__, "-", error)
+        if(type(error).__name__ == "MissingSchema" or type(error).__name__ == "SSLError"):
+            print("Please enter a valid url :)")
+        elif(type(error).__name__ == "ConnectTimeout"):
+            print("Sorry we could not connect to this website, please try again :D")
+        elif(type(error).__name__ == "KeyError"):
+            print("Sorry this website is not supported at this time :(")
+            
+# main()
 
 
 
