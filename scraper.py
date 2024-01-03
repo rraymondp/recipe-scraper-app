@@ -92,7 +92,10 @@ def get_thumbnail(article, recipe):
         if type(recipe["image"]) == list:
             thumbnail_url = recipe["image"][0]
         elif type(recipe["image"]) == dict:
-            thumbnail_url = recipe["image"]
+            if "url" in recipe["image"]:
+                thumbnail_url = recipe["image"]["url"]
+            else:
+                thumbnail_url = recipe["image"]["url"]
     else:
         thumbnail_url = article["thumbnailUrl"]
     return thumbnail_url
@@ -144,7 +147,7 @@ def output(food_name, schema, prep_time, cook_time, total_time, thumbnail_url, i
 
 def main():
     try:
-        url = "https://www.loveandlemons.com/brownies-recipe/"
+        url = "https://www.allrecipes.com/recipe/238691/simple-macaroni-and-cheese/"
         html = scrape(url)
         json_data = parse(html)
         recipe_data = get_recipe_data(json_data)
