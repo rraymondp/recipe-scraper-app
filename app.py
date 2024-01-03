@@ -1,6 +1,6 @@
 from flask import Flask
 from views import views   #import views variable from views.py
-
+from waitress import serve
 
 # Main Screen for the website
 
@@ -9,4 +9,4 @@ app.register_blueprint(views, url_prefix="/") # access any route if the url pref
 
 
 if __name__ == "__main__": #running the application
-    app.run(debug=True, port=8000)
+    serve(app, host="0.0.0.0", port=8000)
