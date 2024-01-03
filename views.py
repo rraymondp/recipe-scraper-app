@@ -26,7 +26,7 @@ def get_recipe_data():                     #retrieve the recipes data from the u
         total_time = scraper.get_total_time(recipe_data)
         ingredients = scraper.get_ingredients(recipe_data)
         instructions = scraper.get_instructions(recipe_data)
-        thumbnail_url = scraper.get_thumbnail(article_data)
+        thumbnail_url = scraper.get_thumbnail(article_data, recipe_data)
         
         error_statement = ""
 

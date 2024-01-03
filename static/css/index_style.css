@@ -8,7 +8,7 @@
     width: 100%;
     min-height: 100vh;
     padding: 5%;
-    background-image: url(../images/download.png);
+    background-color: #ffc3b0;
     background-position: center;
     background-size: cover;
     display: flex;
@@ -17,15 +17,21 @@
     justify-content: center;
 }
 
+.title{
+    padding: 20px;
+    font-size: 50px;
+}
+
 .search-bar{
     width: 100%;
     max-width: 100%;
-    background-color: #ffce78;
+    background-color: #ffe1d8;
     display: flex;
     align-items: center;
     border-radius: 60px;
     padding: 10px 20px;
-    backdrop-filter: blur(4px) saturate(180%);
+    box-shadow: 5px 10px #f79f84;
+
 }
 
 .search-bar input{
@@ -51,6 +57,6 @@
     border-radius: 50%;
     width: 60px;
     height: 60px;
-    background: #fca816;
+    background: #f79f84;
     cursor: pointer;
 }

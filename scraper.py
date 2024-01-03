@@ -25,7 +25,7 @@ def parse(html_page):
     
 def get_recipe_data(json_ld):
     #check if json-ld has a graph object or not --> '@graph'
-    if len(json_ld) <= 2:
+    if "@graph" in json_ld:
         for i in range(len(json_ld["@graph"])):                 #Iterating through the '@graph' key to find the value that contains the recipe data
             if (json_ld["@graph"][i]["@type"] == "Recipe"):
                 recipe_data = json_ld["@graph"][i]
@@ -36,7 +36,7 @@ def get_recipe_data(json_ld):
 
 def get_article_data(json_ld):
     #check if json-ld has a graph object or not --> '@graph'
-    if len(json_ld) <= 2:
+    if "@graph" in json_ld:
         for i in range(len(json_ld["@graph"])):                 #Iterating through the '@graph' key to find the value that contains the recipe data
             if (json_ld["@graph"][i]["@type"] == "Article" or json_ld["@graph"][i]["@type"] == "WebPage"):
                 article_data = json_ld["@graph"][i]
@@ -87,8 +87,14 @@ def get_minutes(time):
     mins = isodate.parse_duration(time).seconds // 60
     return mins
 
-def get_thumbnail(results):
-    thumbnail_url = results["thumbnailUrl"]
+def get_thumbnail(article, recipe):
+    if "image" in recipe:
+        if type(recipe["image"]) == list:
+            thumbnail_url = recipe["image"][0]
+        elif type(recipe["image"]) == dict:
+            thumbnail_url = recipe["image"]
+    else:
+        thumbnail_url = article["thumbnailUrl"]
     return thumbnail_url
     
 def output(food_name, schema, prep_time, cook_time, total_time, thumbnail_url, ingredients, instructions):
@@ -138,7 +144,7 @@ def output(food_name, schema, prep_time, cook_time, total_time, thumbnail_url, i
 
 def main():
     try:
-        url = ""
+        url = "https://www.loveandlemons.com/brownies-recipe/"
         html = scrape(url)
         json_data = parse(html)
         recipe_data = get_recipe_data(json_data)
@@ -150,7 +156,7 @@ def main():
         total_time = get_total_time(recipe_data)
         ingredients = get_ingredients(recipe_data)
         instructions = get_instructions(recipe_data)
-        thumbnail = get_thumbnail(article_data)
+        thumbnail = get_thumbnail(article_data, recipe_data)
 
         output(name, schema, prep_time, cook_time, total_time, thumbnail, ingredients, instructions)
 
