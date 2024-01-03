@@ -52,19 +52,21 @@ def get_schema(json_dic):
     return schema
 
 def get_name(results):
-    name = results["name"].replace("&#39;", "'")
+    name = results["name"].replace("&#39;", "'").replace("&nbsp;", "")
 
     return name
 
 def get_ingredients(results):
-    ingredients = results["recipeIngredient"]
+    ingredients = []
+    for i in range(len(results["recipeIngredient"])):
+        ingredients.append(results["recipeIngredient"][i].replace("&#39;", "'").replace("&nbsp;", ""))
 
     return ingredients
 
 def get_instructions(results):
     instructions = []
     for instruction in results["recipeInstructions"]:
-        instructions.append(instruction["text"].replace("&nbsp;", ""))         #appends each of the instructions found in the json data into the instructions list as well as remove all instances of non-breaking spaces "ndsp;"
+        instructions.append(instruction["text"].replace("&#39;", "'").replace("&nbsp;", ""))         #appends each of the instructions found in the json data into the instructions list as well as remove all instances of non-breaking spaces "ndsp;"
 
     return instructions
 
@@ -172,7 +174,7 @@ def main():
         elif(type(error).__name__ == "KeyError"):
             print("Sorry this website is not supported at this time :(")
             
-main()
+# main()
 
 
 
