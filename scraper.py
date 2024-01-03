@@ -52,7 +52,7 @@ def get_schema(json_dic):
     return schema
 
 def get_name(results):
-    name = results["name"]
+    name = results["name"].replace("&#39;", "'")
 
     return name
 
@@ -147,7 +147,7 @@ def output(food_name, schema, prep_time, cook_time, total_time, thumbnail_url, i
 
 def main():
     try:
-        url = "https://www.allrecipes.com/recipe/238691/simple-macaroni-and-cheese/"
+        url = "https://www.allrecipes.com/recipe/23600/worlds-best-lasagna/"
         html = scrape(url)
         json_data = parse(html)
         recipe_data = get_recipe_data(json_data)
@@ -172,7 +172,7 @@ def main():
         elif(type(error).__name__ == "KeyError"):
             print("Sorry this website is not supported at this time :(")
             
-# main()
+main()
 
 
 
